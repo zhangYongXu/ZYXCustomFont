@@ -17,7 +17,8 @@
         mySessionManager = [[YXHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:APPBaseURL]];
         mySessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
         [mySessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [mySessionManager.requestSerializer setValue:@"Accept-Encoding" forHTTPHeaderField:@"gzip,deflate"];
+        [mySessionManager.requestSerializer setValue:@"d842971e25478c228bc6712028262562" forHTTPHeaderField:@"X-Bmob-Application-Id"];
+        [mySessionManager.requestSerializer setValue:@"ebc8a0834bef16a20a49febb35e9541a" forHTTPHeaderField:@"X-Bmob-REST-API-Key"];
     });
     return mySessionManager;
 }

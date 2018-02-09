@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger,CommonEnumSexTypes) {
  *
  */
 //测试
-#define APPBaseURL @"http://cloud.bmob.cn/71012d2d4ea6a177/"
+#define APPBaseURL @"https://api.bmob.cn/"
 
 
 

@@ -61,11 +61,11 @@ static ZYXFontViewModel * shareIntance = nil;
  *  @param faildBlock   失败回调
  */
 -(void)requestAllCustomFontDataWithSuccessBlock:(YXSuccessBlock)successBlokc FaildBlock:(YXFaildBlock)faildBlock{
-    
-    NSString * urlStr = @"GetAllCustomFontData";
-    [YXNetWork postSystemHttp:urlStr showProgress:NO sucess:^(id responseObj) {
-        NSArray * array = responseObj[@"allCustomFontsData"];
-        self.modelArray = [ZYXFontModel modelArrayFromDictArray:array];
+    NSString * url = @"1/cloudQuery?bql=select * from ZYXCustomFontModel";
+    NSString * encodeUrl = [self urlEncodeStringWithOurl:url];
+    [YXNetWork getHttp:encodeUrl parameters:nil sucess:^(id responseObj) {
+        NSArray * resultsArray = responseObj[@"results"];
+        self.modelArray = [ZYXFontModel modelArrayFromDictArray:resultsArray];
         for(ZYXFontModel * model in self.modelArray){
             self.fontModelDict[model.fontID] = model;
         }
@@ -73,14 +73,17 @@ static ZYXFontViewModel * shareIntance = nil;
         if(successBlokc){
             successBlokc(responseObj);
         }
-        
     } failed:^(NSString *errorMsg) {
         if(faildBlock){
             faildBlock(errorMsg);
         }
     }];
 }
-
+- (NSString *)urlEncodeStringWithOurl:(NSString*)ourl{
+    NSCharacterSet *encodeUrlSet = [NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *encodeUrl = [ourl stringByAddingPercentEncodingWithAllowedCharacters:encodeUrlSet];
+    return encodeUrl;
+}
 /**
  *  请求自定义字体文件
  *
